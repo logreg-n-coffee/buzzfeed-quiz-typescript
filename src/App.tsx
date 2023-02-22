@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Title from './components/Title';
+import { QuizData } from '../interfaces';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    // quiz state
+    const [quiz, setQuiz] = useState<QuizData | null>();
+
+    const fetchData = async () => { 
+        try {
+            const response: Response = await fetch('https://localhost:8080/api/quiz-items');
+            const data: QuizData = await response.json();
+            setQuiz(data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => { 
+        fetchData();
+    }, []);
+
+    return (
+        <div>
+            <Title
+            />
+        </div>
+    );
+};
 
 export default App;
