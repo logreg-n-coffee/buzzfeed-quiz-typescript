@@ -27,7 +27,7 @@ const QuestionsBlock = (
             </h2>
 
             <div className='questions-container'>
-                {quizItem?.questions.map((question: Question, _index) => (
+                {quizItem?.questions.map((question: Question, _index: number) => (
                     <QuestionBlock
                         key={_index}
                         question={question}
