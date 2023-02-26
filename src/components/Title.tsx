@@ -3,8 +3,8 @@ import { QuizData } from '../../interfaces';
 
 const Title = (
     { title, subtitle }: {
-        title: QuizData['title'] | undefined,
-        subtitle: QuizData['subtitle'] | undefined,
+        title: QuizData['title'],
+        subtitle: QuizData['subtitle'],
     }
 ) => {
     return (
