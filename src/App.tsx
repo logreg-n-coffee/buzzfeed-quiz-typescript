@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // components
 import Title from './components/Title';
 import QuestionsBlock from './components/QuestionsBlock';
+import HoveringResetButton from './components/HoveringResetButton';
 // interfaces
 import { QuizData, Content } from '../interfaces';
 
@@ -35,11 +36,19 @@ const App = () => {
         const unansweredIds = quiz?.content.map(({ id }: Content) => id) || [];
         setUnansweredQuestionIds(unansweredIds);
     }, [quiz]);
+
+    // TODO: answer block to display answers
+    // TODO: scrolling effects
     
-    // if the data can be fetched
+    // display the page if the data can be fetched
     if (quiz) {
         return (
             <div className='app'>
+                <HoveringResetButton
+                    quiz={quiz}
+                    setChosenAnswerItems={setChosenAnswerItems}
+                    setUnansweredQuestionIds={setUnansweredQuestionIds}
+                />
                 <Title
                     title={quiz?.title}
                     subtitle={quiz?.subtitle}
@@ -57,7 +66,7 @@ const App = () => {
                     )
                 )}
             </div>
-    );
+        );
     } else {
         return <h1>Fetching Data...</h1>;
     }
