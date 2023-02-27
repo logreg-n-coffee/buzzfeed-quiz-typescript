@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // components
 import Title from './components/Title';
 import QuestionsBlock from './components/QuestionsBlock';
+import AnswerBlock from './components/AnswerBlock';
 import HoveringResetButton from './components/HoveringResetButton';
 // interfaces
 import { QuizData, Content } from '../interfaces';
@@ -14,6 +15,10 @@ const App = () => {
     // answer state
     const [chosenAnswerItems, setChosenAnswerItems] = useState<string[]>([]);
     const [unansweredQuestionIds, setUnansweredQuestionIds] = useState<number[]>([]);
+    const [showAnswerBlock, setShowAnswerBlock] = useState<boolean>(false);
+
+    // img load state - prevent showing broken images in AnswerBlock
+    const [imgLoaded, setImgLoaded] = useState<boolean>(true);
 
     // fetch data function
     const fetchData = async () => { 
@@ -39,6 +44,21 @@ const App = () => {
 
     // TODO: answer block to display answers
     // TODO: scrolling effects
+    useEffect(() => {
+        // if everything is finished, then show the answer block
+        if (unansweredQuestionIds.length <= 0 && chosenAnswerItems.length >= 1) { 
+            setShowAnswerBlock(true);
+            const answerBlock = document.getElementById('answer-block');
+            answerBlock?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // scrolling to the question
+        if (unansweredQuestionIds) {
+            const highestId = Math.min(...unansweredQuestionIds);
+            const highestElement = document.getElementById(String(highestId));
+            highestElement?.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [unansweredQuestionIds, chosenAnswerItems]);
     
     // display the page if the data can be fetched
     if (quiz) {
@@ -48,6 +68,8 @@ const App = () => {
                     quiz={quiz}
                     setChosenAnswerItems={setChosenAnswerItems}
                     setUnansweredQuestionIds={setUnansweredQuestionIds}
+                    setImgLoaded={setImgLoaded}
+                    setShowAnswerBlock={setShowAnswerBlock}
                 />
                 <Title
                     title={quiz?.title}
@@ -65,6 +87,14 @@ const App = () => {
                         />
                     )
                 )}
+                {showAnswerBlock && 
+                    <AnswerBlock
+                    answerOptions={quiz?.answers}
+                    chosenAnswerItems={chosenAnswerItems}
+                    imgLoaded={imgLoaded}
+                    setImgLoaded={setImgLoaded}
+                    />
+                }
             </div>
         );
     } else {

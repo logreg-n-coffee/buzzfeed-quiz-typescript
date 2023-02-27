@@ -7,16 +7,22 @@ const HoveringResetButton = (
         quiz,
         setChosenAnswerItems,
         setUnansweredQuestionIds,
+        setImgLoaded,
+        setShowAnswerBlock,
     }: {
-        quiz: QuizData,
-        setUnansweredQuestionIds: Function,
-        setChosenAnswerItems: Function,
+            quiz: QuizData,
+            setUnansweredQuestionIds: Function,
+            setChosenAnswerItems: Function,
+            setImgLoaded: Function,
+            setShowAnswerBlock: Function,
     }
 ) => {
     const handleClick = () => {
         setChosenAnswerItems([]);
         const unansweredIds = quiz?.content.map(({ id }: Content) => id) || [];
         setUnansweredQuestionIds(unansweredIds);
+        setImgLoaded(true);
+        setShowAnswerBlock(false);
     };
 
     return (
