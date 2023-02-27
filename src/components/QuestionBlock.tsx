@@ -38,14 +38,13 @@ const QuestionBlock = (
             className='question-block'
             onClick={handleClick}
             disabled={validPick}
+            type='button'
         >
             <img src={question.image} alt={question.alt} />
             <h3>{question.text}</h3>
-            <p>
-                <a href={question.image}>{question.credit}</a>
-                <br />
-                <a href='https://unsplash.com/'>Unsplash</a>
-            </p>
+            <div>
+                <p>Photo by {question.credit} - Unsplash</p>
+            </div>
         </button>
     );
 };

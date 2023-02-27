@@ -121,14 +121,8 @@ p {
 .question-block p {
     color: rgb(255, 255, 255);
     position: relative;
-    font-size: 0.25rem;
+    font-size: 0.5rem;
     font-style: italic;
-}
-
-.question-block a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    padding: 0;
 }
 
 /* Component: AnswerBlock */

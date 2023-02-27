@@ -27,7 +27,7 @@ const HoveringResetButton = (
 
     return (
         <div>
-            <button className='reset-button' onClick={handleClick}>
+            <button className='reset-button' onClick={handleClick} type='button'>
                 <ArrowUturnRightIcon />
                 <p>Reset</p>
             </button>
