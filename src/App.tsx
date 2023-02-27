@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 // components
 import Title from './components/Title';
 import QuestionsBlock from './components/QuestionsBlock';
@@ -19,6 +19,20 @@ const App = () => {
 
     // img load state - prevent showing broken images in AnswerBlock
     const [imgLoaded, setImgLoaded] = useState<boolean>(true);
+
+    // define the refs
+    type ReduceType = {
+        id?: {}
+    }
+
+    // get all refs for unanswered question ids
+    const unansweredRefs = unansweredQuestionIds?.reduce<ReduceType | any>((acc, id) => {
+        acc[id as unknown as keyof ReduceType] = createRef<HTMLDivElement | null>();
+        return acc;
+    }, {});
+
+    // get ref for answered questions
+    const answerRef = createRef<HTMLDivElement | null>();
 
     // fetch data function
     const fetchData = async () => { 
@@ -42,23 +56,22 @@ const App = () => {
         setUnansweredQuestionIds(unansweredIds);
     }, [quiz]);
 
-    // TODO: answer block to display answers
-    // TODO: scrolling effects
     useEffect(() => {
+        if (chosenAnswerItems.length > 0 && unansweredQuestionIds) { 
+            if (showAnswerBlock && answerRef.current) {
+                answerRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // if everything is finished, then show the answer block
         if (unansweredQuestionIds.length <= 0 && chosenAnswerItems.length >= 1) { 
             setShowAnswerBlock(true);
-            const answerBlock = document.getElementById('answer-block');
-            answerBlock?.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // scrolling to the question
-        if (unansweredQuestionIds) {
+        } else {
+            // scrolling to the unanswered question
             const highestId = Math.min(...unansweredQuestionIds);
-            const highestElement = document.getElementById(String(highestId));
-            highestElement?.scrollIntoView({ behavior: 'smooth' });
+            unansweredRefs[highestId]?.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, [unansweredQuestionIds, chosenAnswerItems]);
+    }, [unansweredQuestionIds, chosenAnswerItems.length, showAnswerBlock, unansweredRefs, answerRef]);
     
     // display the page if the data can be fetched
     if (quiz) {
@@ -75,15 +88,16 @@ const App = () => {
                     title={quiz?.title}
                     subtitle={quiz?.subtitle}
                 />
-                {quiz?.content?.map(
-                    (content: Content, id: Content['id']) => ( 
+                {unansweredRefs && quiz?.content?.map(
+                    (content: Content) => ( 
                         <QuestionsBlock
-                            key={id}
+                            key={content.id}
                             quizItem={content}
                             chosenAnswerItems={chosenAnswerItems}
                             setChosenAnswerItems={setChosenAnswerItems}
                             unansweredQuestionIds={unansweredQuestionIds}
                             setUnansweredQuestionIds={setUnansweredQuestionIds}
+                            ref={unansweredRefs[content.id]}
                         />
                     )
                 )}
@@ -93,6 +107,7 @@ const App = () => {
                     chosenAnswerItems={chosenAnswerItems}
                     imgLoaded={imgLoaded}
                     setImgLoaded={setImgLoaded}
+                    ref={answerRef}
                     />
                 }
             </div>

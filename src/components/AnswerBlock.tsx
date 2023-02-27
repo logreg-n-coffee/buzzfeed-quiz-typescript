@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import { Answer } from '../../interfaces';
 
 
@@ -13,7 +13,8 @@ const AnswerBlock = (
             chosenAnswerItems: string[],
             imgLoaded: boolean,
             setImgLoaded: Function,
-    }
+        },
+    ref: HTMLHeadingElement | any
 ) => {
     // result state
     const [result, setResult] = useState<Answer | null>();
@@ -35,7 +36,7 @@ const AnswerBlock = (
     }, [answerOptions, chosenAnswerItems]);
 
     return (
-        <div id='answer-block' className='answer-block'>
+        <div ref={ref} className='answer-block'>
             <h2>{result?.text}</h2>
             {imgLoaded &&
                 <img
@@ -48,4 +49,4 @@ const AnswerBlock = (
     );
 };
 
-export default AnswerBlock;
+export default forwardRef(AnswerBlock);

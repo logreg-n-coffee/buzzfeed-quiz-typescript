@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Content, Question } from '../../interfaces';
 import QuestionBlock from './QuestionBlock';
 
@@ -16,13 +16,13 @@ const QuestionsBlock = (
             setChosenAnswerItems: Function,
             unansweredQuestionIds: number[],
             setUnansweredQuestionIds: Function,
-        }
-) => {
+        },
+    ref: React.LegacyRef<HTMLHeadingElement> | undefined) => {
     return (
         <div>
             <h2
                 className='title-block'
-                id={String(quizItem.id)}
+                ref={ref}
             >{quizItem.text}
             </h2>
 
@@ -43,4 +43,4 @@ const QuestionsBlock = (
     );
 };
 
-export default QuestionsBlock;
+export default forwardRef(QuestionsBlock);
