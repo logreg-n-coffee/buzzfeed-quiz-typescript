@@ -24,12 +24,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 const quizItem: QuizData = await response.data.data[QUIZID];
                 res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
                 res.send(quizItem);
+                res.status(200).end();
             }
         } catch (e: unknown) { 
             console.error(e);
+            res.status(500).end('Internal Server Error');
         }
     } else {
-        res.send('Method Not Allowed');
+        res.status(405).end('Method Not Allowed');
     }
 };
 
