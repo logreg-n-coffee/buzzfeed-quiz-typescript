@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import { Answer } from '../../interfaces';
+import { Answer } from '../../../interfaces';
 
 
 const AnswerBlock = (

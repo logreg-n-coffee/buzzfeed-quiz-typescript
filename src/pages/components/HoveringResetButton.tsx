@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUturnRightIcon } from '@heroicons/react/24/solid';
-import { Content, QuizData } from '../../interfaces';
+import { Content, QuizData } from '../../../interfaces';
 
 const HoveringResetButton = (
     {

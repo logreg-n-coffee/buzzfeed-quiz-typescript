@@ -5,10 +5,10 @@ import QuestionsBlock from './components/QuestionsBlock';
 import AnswerBlock from './components/AnswerBlock';
 import HoveringResetButton from './components/HoveringResetButton';
 // interfaces
-import { QuizData, Content } from '../interfaces';
+import { QuizData, Content } from '../../interfaces';
 
 
-const App = () => {
+const Home = () => {
     // quiz state
     const [quiz, setQuiz] = useState<QuizData | null>();
 
@@ -37,7 +37,7 @@ const App = () => {
     // fetch data function
     const fetchData = async () => { 
         try {
-            const response: Response = await fetch('http://localhost:8000/api/quiz-items');
+            const response: Response = await fetch('api/quiz-items');
             const data: QuizData = await response.json();
             setQuiz(data);
         } catch (e) {
@@ -117,4 +117,4 @@ const App = () => {
     }
 };
 
-export default App;
+export default Home;

@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Content, Question } from '../../interfaces';
+import { Content, Question } from '../../../interfaces';
 import QuestionBlock from './QuestionBlock';
 
 const QuestionsBlock = (
