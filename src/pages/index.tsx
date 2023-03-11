@@ -1,9 +1,9 @@
 import React, { useState, useEffect, createRef } from 'react';
 // components
-import Title from './components/Title';
-import QuestionsBlock from './components/QuestionsBlock';
-import AnswerBlock from './components/AnswerBlock';
-import HoveringResetButton from './components/HoveringResetButton';
+import Title from '../components/Title';
+import QuestionsBlock from '../components/QuestionsBlock';
+import AnswerBlock from '../components/AnswerBlock';
+import HoveringResetButton from '../components/HoveringResetButton';
 // interfaces
 import { QuizData, Content } from '../../interfaces';
 

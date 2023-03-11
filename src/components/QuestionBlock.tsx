@@ -1,5 +1,5 @@
 import React from 'react';
-import { Question } from '../../../interfaces';
+import { Question } from '../../interfaces';
 
 const QuestionBlock = (
     {
