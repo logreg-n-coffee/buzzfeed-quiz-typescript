@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             if (response.status === 200) {
                 const quizItem: QuizData = await response.data.data[QUIZID];
-                res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+                res.setHeader('Access-Control-Allow-Origin', 'https://buzzfeed-quiz-typescript.vercel.app');
                 res.send(quizItem);
                 res.status(200).end();
             }
